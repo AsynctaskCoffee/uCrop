@@ -3,6 +3,7 @@ package com.yalantis.ucrop;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
@@ -144,7 +145,7 @@ public class UCropActivity extends AppCompatActivity {
         if (menuItemLoaderIcon != null) {
             try {
                 menuItemLoaderIcon.mutate();
-                menuItemLoaderIcon.setColorFilter(mToolbarWidgetColor, PorterDuff.Mode.SRC_ATOP);
+                menuItemLoaderIcon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
                 menuItemLoader.setIcon(menuItemLoaderIcon);
             } catch (IllegalStateException e) {
                 Log.i(TAG, String.format("%s - %s", e.getMessage(), getString(R.string.ucrop_mutate_exception_hint)));
@@ -156,7 +157,7 @@ public class UCropActivity extends AppCompatActivity {
         Drawable menuItemCropIcon = ContextCompat.getDrawable(this, mToolbarCropDrawable);
         if (menuItemCropIcon != null) {
             menuItemCropIcon.mutate();
-            menuItemCropIcon.setColorFilter(mToolbarWidgetColor, PorterDuff.Mode.SRC_ATOP);
+            menuItemCropIcon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
             menuItemCrop.setIcon(menuItemCropIcon);
         }
 
@@ -286,14 +287,14 @@ public class UCropActivity extends AppCompatActivity {
 
     private void setupViews(@NonNull Intent intent) {
         mStatusBarColor = intent.getIntExtra(UCrop.Options.EXTRA_STATUS_BAR_COLOR, ContextCompat.getColor(this, R.color.ucrop_color_statusbar));
-        mToolbarColor = intent.getIntExtra(UCrop.Options.EXTRA_TOOL_BAR_COLOR, ContextCompat.getColor(this, R.color.ucrop_color_toolbar));
-        mActiveControlsWidgetColor = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_COLOR_CONTROLS_WIDGET_ACTIVE, ContextCompat.getColor(this, R.color.ucrop_color_active_controls_color));
+        mToolbarColor = intent.getIntExtra(UCrop.Options.EXTRA_TOOL_BAR_COLOR, Color.parseColor("#333333"));
+        mActiveControlsWidgetColor = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_COLOR_CONTROLS_WIDGET_ACTIVE, ContextCompat.getColor(this, R.color.ucrop_color_white));
 
         mToolbarWidgetColor = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_WIDGET_COLOR_TOOLBAR, ContextCompat.getColor(this, R.color.ucrop_color_toolbar_widget));
         mToolbarCancelDrawable = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_WIDGET_CANCEL_DRAWABLE, R.drawable.ucrop_ic_cross);
         mToolbarCropDrawable = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_WIDGET_CROP_DRAWABLE, R.drawable.ucrop_ic_done);
         mToolbarTitle = intent.getStringExtra(UCrop.Options.EXTRA_UCROP_TITLE_TEXT_TOOLBAR);
-        mToolbarTitle = mToolbarTitle != null ? mToolbarTitle : getResources().getString(R.string.ucrop_label_edit_photo);
+        mToolbarTitle = "";
         mLogoColor = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_LOGO_COLOR, ContextCompat.getColor(this, R.color.ucrop_color_default_logo));
         mShowBottomControls = !intent.getBooleanExtra(UCrop.Options.EXTRA_HIDE_BOTTOM_CONTROLS, false);
         mRootViewBackgroundColor = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_ROOT_VIEW_BACKGROUND_COLOR, ContextCompat.getColor(this, R.color.ucrop_color_crop_background));
@@ -347,7 +348,7 @@ public class UCropActivity extends AppCompatActivity {
 
         // Color buttons inside the Toolbar
         Drawable stateButtonDrawable = ContextCompat.getDrawable(this, mToolbarCancelDrawable).mutate();
-        stateButtonDrawable.setColorFilter(mToolbarWidgetColor, PorterDuff.Mode.SRC_ATOP);
+        stateButtonDrawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
         toolbar.setNavigationIcon(stateButtonDrawable);
 
         setSupportActionBar(toolbar);
@@ -437,30 +438,34 @@ public class UCropActivity extends AppCompatActivity {
         ArrayList<AspectRatio> aspectRatioList = intent.getParcelableArrayListExtra(UCrop.Options.EXTRA_ASPECT_RATIO_OPTIONS);
 
         if (aspectRatioList == null || aspectRatioList.isEmpty()) {
-            aspectRationSelectedByDefault = 2;
-
+            aspectRationSelectedByDefault = 5;
             aspectRatioList = new ArrayList<>();
-            aspectRatioList.add(new AspectRatio(null, 1, 1));
-            aspectRatioList.add(new AspectRatio(null, 3, 4));
+            aspectRatioList.add(new AspectRatio("Free", 1, 1));
+            aspectRatioList.add(new AspectRatio("Post", 3, 4));
+            aspectRatioList.add(new AspectRatio("Portrait", 3, 2));
+            aspectRatioList.add(new AspectRatio("Landscape", 16, 9));
+            aspectRatioList.add(new AspectRatio("Link", 1200, 627));
             aspectRatioList.add(new AspectRatio(getString(R.string.ucrop_label_original).toUpperCase(),
                     CropImageView.SOURCE_IMAGE_ASPECT_RATIO, CropImageView.SOURCE_IMAGE_ASPECT_RATIO));
-            aspectRatioList.add(new AspectRatio(null, 3, 2));
-            aspectRatioList.add(new AspectRatio(null, 16, 9));
+            aspectRatioList.add(new AspectRatio("Instagram Story", 1920, 1080));
+            aspectRatioList.add(new AspectRatio("Twitter Cover", 3, 1));
+            aspectRatioList.add(new AspectRatio("Facebook Cover", 820, 312));
+            aspectRatioList.add(new AspectRatio("Youtube Cover", 2048, 1152));
+            aspectRatioList.add(new AspectRatio("Youtube Thumb", 1280, 720));
         }
 
         LinearLayout wrapperAspectRatioList = findViewById(R.id.layout_aspect_ratio);
 
         FrameLayout wrapperAspectRatio;
         AspectRatioTextView aspectRatioTextView;
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
-        lp.weight = 1;
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
         for (AspectRatio aspectRatio : aspectRatioList) {
             wrapperAspectRatio = (FrameLayout) getLayoutInflater().inflate(R.layout.ucrop_aspect_ratio, null);
             wrapperAspectRatio.setLayoutParams(lp);
             aspectRatioTextView = ((AspectRatioTextView) wrapperAspectRatio.getChildAt(0));
+            aspectRatioTextView.setPadding(10, 0, 10, 0);
             aspectRatioTextView.setActiveColor(mActiveControlsWidgetColor);
             aspectRatioTextView.setAspectRatio(aspectRatio);
-
             wrapperAspectRatioList.addView(wrapperAspectRatio);
             mCropAspectRatioViews.add(wrapperAspectRatio);
         }

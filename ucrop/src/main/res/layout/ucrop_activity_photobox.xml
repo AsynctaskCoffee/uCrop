@@ -9,7 +9,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/ucrop_color_toolbar"
+        android:background="#333333"
         android:minHeight="?attr/actionBarSize">
 
         <TextView
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:text="@string/ucrop_label_edit_photo"
-            android:textColor="@color/ucrop_color_toolbar_widget" />
+            android:textColor="@color/ucrop_color_white" />
 
     </androidx.appcompat.widget.Toolbar>
 

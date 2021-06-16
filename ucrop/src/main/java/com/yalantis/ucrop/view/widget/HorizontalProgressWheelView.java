@@ -128,7 +128,7 @@ public class HorizontalProgressWheelView extends View {
     }
 
     private void init() {
-        mMiddleLineColor = ContextCompat.getColor(getContext(), R.color.ucrop_color_widget_rotate_mid_line);
+        mMiddleLineColor = ContextCompat.getColor(getContext(), R.color.ucrop_color_white);
 
         mProgressLineWidth = getContext().getResources().getDimensionPixelSize(R.dimen.ucrop_width_horizontal_wheel_progress_line);
         mProgressLineHeight = getContext().getResources().getDimensionPixelSize(R.dimen.ucrop_height_horizontal_wheel_progress_line);
@@ -137,7 +137,7 @@ public class HorizontalProgressWheelView extends View {
         mProgressLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mProgressLinePaint.setStyle(Paint.Style.STROKE);
         mProgressLinePaint.setStrokeWidth(mProgressLineWidth);
-        mProgressLinePaint.setColor(getResources().getColor(R.color.ucrop_color_progress_wheel_line));
+        mProgressLinePaint.setColor(getResources().getColor(R.color.ucrop_color_default_crop_grid));
 
         mProgressMiddleLinePaint = new Paint(mProgressLinePaint);
         mProgressMiddleLinePaint.setColor(mMiddleLineColor);
