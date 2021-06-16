@@ -11,18 +11,18 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 
-import com.yalantis.ucrop.model.AspectRatio;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Locale;
-
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.FloatRange;
 import androidx.annotation.IntRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.yalantis.ucrop.model.AspectRatio;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Locale;
 
 /**
  * Created by Oleksii Shliama (https://github.com/shliama).
@@ -301,6 +301,8 @@ public class UCrop {
 
         public static final String EXTRA_UCROP_ROOT_VIEW_BACKGROUND_COLOR = EXTRA_PREFIX + ".UcropRootViewBackgroundColor";
 
+        public static final String EXTRA_STARTING_POINT = EXTRA_PREFIX + ".UcropRootViewBackgroundColor";
+
 
         private final Bundle mOptionBundle;
 
@@ -318,6 +320,13 @@ public class UCrop {
          */
         public void setCompressionFormat(@NonNull Bitmap.CompressFormat format) {
             mOptionBundle.putString(EXTRA_COMPRESSION_FORMAT_NAME, format.name());
+        }
+
+        public void setStartedPoint(int type) {
+//            type = 0 crop
+//            type = 1 rotate
+//            type = 2 zoom
+            mOptionBundle.putInt(EXTRA_STARTING_POINT, type);
         }
 
         /**

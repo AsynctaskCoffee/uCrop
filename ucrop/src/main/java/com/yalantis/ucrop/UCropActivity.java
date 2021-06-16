@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,6 +57,8 @@ import androidx.core.content.ContextCompat;
 import androidx.transition.AutoTransition;
 import androidx.transition.Transition;
 import androidx.transition.TransitionManager;
+
+import static com.yalantis.ucrop.UCrop.Options.EXTRA_STARTING_POINT;
 
 /**
  * Created by Oleksii Shliama (https://github.com/shliama).
@@ -132,6 +135,14 @@ public class UCropActivity extends AppCompatActivity {
         setImageData(intent);
         setInitialState();
         addBlockingView();
+        int type = intent.getIntExtra(EXTRA_STARTING_POINT, 0);
+        if (type == 0) {
+            mWrapperStateAspectRatio.performClick();
+        } else if (type == 1) {
+            mWrapperStateRotate.performClick();
+        } else if (type == 2) {
+            mWrapperStateScale.performClick();
+        }
     }
 
     @Override
@@ -285,7 +296,7 @@ public class UCropActivity extends AppCompatActivity {
         }
     }
 
-    private void setupViews(@NonNull Intent intent) {
+    private void setupViews(@NonNull final Intent intent) {
         mStatusBarColor = intent.getIntExtra(UCrop.Options.EXTRA_STATUS_BAR_COLOR, ContextCompat.getColor(this, R.color.ucrop_color_statusbar));
         mToolbarColor = intent.getIntExtra(UCrop.Options.EXTRA_TOOL_BAR_COLOR, Color.parseColor("#333333"));
         mActiveControlsWidgetColor = intent.getIntExtra(UCrop.Options.EXTRA_UCROP_COLOR_CONTROLS_WIDGET_ACTIVE, ContextCompat.getColor(this, R.color.ucrop_color_white));
@@ -327,6 +338,7 @@ public class UCropActivity extends AppCompatActivity {
             setupRotateWidget();
             setupScaleWidget();
             setupStatesWrapper();
+
         }
     }
 

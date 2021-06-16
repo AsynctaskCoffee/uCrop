@@ -310,7 +310,6 @@ public class SampleActivity extends BaseActivity implements UCropFragmentCallbac
 
         options.setHideBottomControls(mCheckBoxHideBottomControls.isChecked());
         options.setFreeStyleCropEnabled(mCheckBoxFreeStyleCrop.isChecked());
-
         /*
         If you want to configure how gestures work for all UCropActivity tabs
 
@@ -357,7 +356,7 @@ public class SampleActivity extends BaseActivity implements UCropFragmentCallbac
             new AspectRatio("ASPECT", 1, 1));
 
        */
-
+        options.setStartedPoint(2);
         return uCrop.withOptions(options);
     }
 
