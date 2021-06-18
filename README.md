@@ -1,4 +1,4 @@
-# uCrop - Image Cropping Library for Android -AsynctaskEditition (for fun)
+# uCrop - Image Cropping -AsynctaskEditition (for fun)
 
 #### Made in [Yalantis](https://yalantis.com/?utm_source=github) ⚠️
 
