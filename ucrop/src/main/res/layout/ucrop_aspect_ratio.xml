@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout style="@style/ucrop_WrapperIconState">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:layout_width="47dp"
+        android:layout_height="47dp"
+        android:layout_margin="4dp"
+        android:background="@drawable/hollow_circle">
+
+        <ImageView
+            android:id="@+id/imageIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:adjustViewBounds="true"
+            android:padding="5dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ratio_1_1"
+            android:tint="@color/ucrop_color_heather" />
+
+    </FrameLayout>
+
 
     <com.yalantis.ucrop.view.widget.AspectRatioTextView style="@style/ucrop_TextViewCropAspectRatio" />
 
-</FrameLayout>
+</LinearLayout>

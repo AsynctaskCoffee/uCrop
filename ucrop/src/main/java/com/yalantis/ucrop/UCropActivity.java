@@ -10,9 +10,9 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -452,29 +452,31 @@ public class UCropActivity extends AppCompatActivity {
         if (aspectRatioList == null || aspectRatioList.isEmpty()) {
             aspectRationSelectedByDefault = 5;
             aspectRatioList = new ArrayList<>();
-            aspectRatioList.add(new AspectRatio("Free", 1, 1));
-            aspectRatioList.add(new AspectRatio("Post", 3, 4));
-            aspectRatioList.add(new AspectRatio("Portrait", 3, 2));
-            aspectRatioList.add(new AspectRatio("Landscape", 16, 9));
-            aspectRatioList.add(new AspectRatio("Link", 1200, 627));
-            aspectRatioList.add(new AspectRatio(getString(R.string.ucrop_label_original).toUpperCase(),
-                    CropImageView.SOURCE_IMAGE_ASPECT_RATIO, CropImageView.SOURCE_IMAGE_ASPECT_RATIO));
-            aspectRatioList.add(new AspectRatio("Instagram Story", 1920, 1080));
-            aspectRatioList.add(new AspectRatio("Twitter Cover", 3, 1));
-            aspectRatioList.add(new AspectRatio("Facebook Cover", 820, 312));
-            aspectRatioList.add(new AspectRatio("Youtube Cover", 2048, 1152));
-            aspectRatioList.add(new AspectRatio("Youtube Thumb", 1280, 720));
+            aspectRatioList.add(new AspectRatio("Original",
+                    CropImageView.SOURCE_IMAGE_ASPECT_RATIO, CropImageView.SOURCE_IMAGE_ASPECT_RATIO, R.drawable.ratio_4_3));
+            aspectRatioList.add(new AspectRatio("Free", 1, 1, R.drawable.ratio_1_1));
+            aspectRatioList.add(new AspectRatio("Post", 3, 4, R.drawable.ratio_3_4));
+            aspectRatioList.add(new AspectRatio("Portrait", 3, 2, R.drawable.ratio_3_2));
+            aspectRatioList.add(new AspectRatio("Landscape", 16, 9, R.drawable.ratio_16_9));
+            aspectRatioList.add(new AspectRatio("Link", 1200, 627, R.drawable.ratio_2_1));
+            aspectRatioList.add(new AspectRatio("Instagram ", 1920, 1080, R.drawable.ratio_2_1));
+            aspectRatioList.add(new AspectRatio("Twitter ", 3, 1, R.drawable.ratio_16_9));
+            aspectRatioList.add(new AspectRatio("Facebook ", 820, 312, R.drawable.ratio_16_9));
+            aspectRatioList.add(new AspectRatio("Youtube ", 1280, 720, R.drawable.ratio_16_9));
         }
 
         LinearLayout wrapperAspectRatioList = findViewById(R.id.layout_aspect_ratio);
 
-        FrameLayout wrapperAspectRatio;
+        LinearLayout wrapperAspectRatio;
         AspectRatioTextView aspectRatioTextView;
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        lp.gravity = Gravity.BOTTOM;
         for (AspectRatio aspectRatio : aspectRatioList) {
-            wrapperAspectRatio = (FrameLayout) getLayoutInflater().inflate(R.layout.ucrop_aspect_ratio, null);
+            wrapperAspectRatio = (LinearLayout) getLayoutInflater().inflate(R.layout.ucrop_aspect_ratio, null);
             wrapperAspectRatio.setLayoutParams(lp);
-            aspectRatioTextView = ((AspectRatioTextView) wrapperAspectRatio.getChildAt(0));
+            aspectRatioTextView = ((AspectRatioTextView) wrapperAspectRatio.getChildAt(1));
+            ImageView imageView = (ImageView) ((FrameLayout) wrapperAspectRatio.getChildAt(0)).getChildAt(0);
+            imageView.setImageResource(aspectRatio.getIcoSrc());
             aspectRatioTextView.setPadding(10, 0, 10, 0);
             aspectRatioTextView.setActiveColor(mActiveControlsWidgetColor);
             aspectRatioTextView.setAspectRatio(aspectRatio);
@@ -489,7 +491,7 @@ public class UCropActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     mGestureCropImageView.setTargetAspectRatio(
-                            ((AspectRatioTextView) ((ViewGroup) v).getChildAt(0)).getAspectRatio(v.isSelected()));
+                            ((AspectRatioTextView) ((ViewGroup) v).getChildAt(1)).getAspectRatio(v.isSelected()));
                     mGestureCropImageView.setImageToWrapCropBounds();
                     if (!v.isSelected()) {
                         for (ViewGroup cropAspectRatioView : mCropAspectRatioViews) {

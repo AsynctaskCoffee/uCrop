@@ -25,7 +25,7 @@
                 android:id="@+id/layout_aspect_ratio"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:gravity="bottom|center"
                 android:orientation="horizontal" />
 
         </HorizontalScrollView>

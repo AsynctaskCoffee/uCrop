@@ -15,16 +15,21 @@ public class AspectRatio implements Parcelable {
     private final float mAspectRatioX;
     private final float mAspectRatioY;
 
-    public AspectRatio(@Nullable String aspectRatioTitle, float aspectRatioX, float aspectRatioY) {
+
+    private final int icoSrc;
+
+    public AspectRatio(@Nullable String aspectRatioTitle, float aspectRatioX, float aspectRatioY, int icoSrc) {
         mAspectRatioTitle = aspectRatioTitle;
         mAspectRatioX = aspectRatioX;
         mAspectRatioY = aspectRatioY;
+        this.icoSrc = icoSrc;
     }
 
     protected AspectRatio(Parcel in) {
         mAspectRatioTitle = in.readString();
         mAspectRatioX = in.readFloat();
         mAspectRatioY = in.readFloat();
+        icoSrc = in.readInt();
     }
 
     @Override
@@ -32,6 +37,7 @@ public class AspectRatio implements Parcelable {
         dest.writeString(mAspectRatioTitle);
         dest.writeFloat(mAspectRatioX);
         dest.writeFloat(mAspectRatioY);
+        dest.writeInt(icoSrc);
     }
 
     @Override
@@ -64,4 +70,7 @@ public class AspectRatio implements Parcelable {
         return mAspectRatioY;
     }
 
+    public int getIcoSrc() {
+        return icoSrc;
+    }
 }

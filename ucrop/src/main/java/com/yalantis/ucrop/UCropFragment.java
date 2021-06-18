@@ -303,7 +303,6 @@ public class UCropFragment extends Fragment {
     };
 
     /**
-     * Use {@link #mActiveWidgetColor} for color filter
      */
     private void setupStatesWrapper(View view) {
         ImageView stateScaleImageView = view.findViewById(R.id.image_view_state_scale);
@@ -323,12 +322,12 @@ public class UCropFragment extends Fragment {
             aspectRationSelectedByDefault = 2;
 
             aspectRatioList = new ArrayList<>();
-            aspectRatioList.add(new AspectRatio(null, 1, 1));
-            aspectRatioList.add(new AspectRatio(null, 3, 4));
+            aspectRatioList.add(new AspectRatio(null, 1, 1, 1));
+            aspectRatioList.add(new AspectRatio(null, 3, 4, 1));
             aspectRatioList.add(new AspectRatio(getString(R.string.ucrop_label_original).toUpperCase(),
-                    CropImageView.SOURCE_IMAGE_ASPECT_RATIO, CropImageView.SOURCE_IMAGE_ASPECT_RATIO));
-            aspectRatioList.add(new AspectRatio(null, 3, 2));
-            aspectRatioList.add(new AspectRatio(null, 16, 9));
+                    CropImageView.SOURCE_IMAGE_ASPECT_RATIO, CropImageView.SOURCE_IMAGE_ASPECT_RATIO, 1));
+            aspectRatioList.add(new AspectRatio(null, 3, 2, 1));
+            aspectRatioList.add(new AspectRatio(null, 16, 9, 1));
         }
 
         LinearLayout wrapperAspectRatioList = view.findViewById(R.id.layout_aspect_ratio);
